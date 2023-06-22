@@ -9,7 +9,6 @@ async function publishMessage() {
       const connection = await amqp.connect('amqp://admin:admin@localhost');
       const channel = await connection.createChannel();
   
-      // Declare uma fila para publicar as mensagens
       const queueName = 'QUEUE';
       await channel.assertQueue(queueName, { durable: true });
       
@@ -17,15 +16,12 @@ async function publishMessage() {
         message: 'Mensagem'
       };
 
-      // Defina a mensagem a ser publicada
       const message = JSON.stringify(jsonData);
   
-      // Publique a mensagem na fila
       channel.sendToQueue(queueName, Buffer.from(message));
   
       console.log('Mensagem publicada:', message);
   
-      // Feche a conexão após a publicação da mensagem
       await channel.close();
       await connection.close();
     } catch (error) {
