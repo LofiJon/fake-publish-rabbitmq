@@ -5,7 +5,6 @@ const port = 3000;
 
 async function publishMessage() {
     try {
-      // Conecte-se ao servidor RabbitMQ
       const connection = await amqp.connect('amqp://admin:admin@localhost');
       const channel = await connection.createChannel();
   
